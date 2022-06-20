@@ -1,0 +1,197 @@
+{% extends 'base.html' %} {%block titulo %} Novedades: {{nombrePlataforma}} {%endblock%}
+{%block contenido%}
+<content class="pt-5 pb-5 row p-auto m-auto">
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      var pelisPlataforma = JSON.parse("{{pelisPlataforma|escapejs}}");
+
+      cont = 0;
+
+      filas = $(".estante:lt(4)");
+
+      for (i = 0; i < filas.length; i++) {
+        for (j = 0; j < 4; j++) {
+          estante = '<div class="col-6 col-md-3">' +
+            '<div class="pt-3 text-center">' +
+            '<a class="peli" name="peli" data-toggle="popover" title="' + pelisPlataforma[cont][1] + '" data-content="' + pelisPlataforma[cont][3] + '">' +
+            '<img class="portada img-fluid" src="' + pelisPlataforma[cont][2] + '" alt="' + pelisPlataforma[cont][1] + '" id=' + pelisPlataforma[cont][0] + ' name="' + pelisPlataforma[cont][3] + '" data-toggle="modal" data-target="#modalMovie">' +
+            '</a>'
+          '</div>' +
+            '</div>';
+          cont++;
+          filas.eq(i).append(estante);
+        }
+      }
+
+      var proxEstrenos = JSON.parse("{{proxEstrenos|escapejs}}");
+      filas2 = $(".estante:gt(5)");
+      cont2 = 0;
+      contTotales = proxEstrenos.length;
+
+      for (i = 0; i < filas.length; i++) {
+        for (j = 0; j < 4; j++) {
+          if (contTotales == cont2) {
+            estante = '<div class="col-6 col-md-3 ">' +
+              '<div class="pt-3 text-center portada2" >' +
+              '<img class="img-fluid" >' +
+              '</div>' +
+              '</div>';
+          } else {
+            estante = '<div class="col-6 col-md-3">' +
+              '<div class="pt-3 text-center">' +
+              '<a class="peli" name="peli" data-toggle="popover" title="' + proxEstrenos[cont2][1] + '" data-content="' + proxEstrenos[cont2][3] + '">' +
+              '<img class="portada img-fluid" src="' + proxEstrenos[cont2][2] + '" alt="' + proxEstrenos[cont2][1] + '" id=' + proxEstrenos[cont2][0] + ' name="' + proxEstrenos[cont2][3] + '" data-toggle="modal" data-target="#modalMovie">' +
+              '</a>' +
+              '</div>' +
+              '</div>';
+            cont2++;
+          }
+          filas2.eq(i).append(estante);
+        }
+      }
+
+      if ($(window).width() > 960) {
+        $('[data-toggle="popover"]').popover({
+          placement: 'right',
+          trigger: 'hover'
+        });
+      } else {
+        $('.portada').css({
+          width: 80,
+          height: 120
+        });
+      }
+
+      $(".peli").click(function () {
+        var urlPeli = $(this).children().first().attr("id");
+        var tituloPeli = $(this).children().first().attr("alt");
+        $.ajax({
+          type: "GET",
+          url: '{% url "mostrarDetalles" %}',
+          data: {
+            'urlPeli': urlPeli
+          },
+          dataType: 'json',
+          success: function (data) {
+            var detalles = data["response"];
+            if (detalles[2] != "")
+              detalles[2] = " <br> Duración: " + detalles[2] + ""
+            if (detalles[9] != "")
+              detalles[2] += " Año: " + detalles[9] + "."
+            $(".card-title").html("<b>" + tituloPeli + "</b>");
+            $(".card-text").html(detalles[2] + "<br>" + detalles[3]);
+            $(".card-img-top").attr("src", detalles[1]);
+
+            if (detalles[8] == "404")
+              $(".card-link").html("<b>No hay link disponible</b>").css("color", "red").removeAttr("href");
+            else
+              $(".card-link").html("<b>Ver Contenido Ahora</b>").css("color", "green").attr("href", detalles[8]);
+
+            $(".list-group-item:eq(0)").html("<b>País:</b> " + detalles[4]);
+            $(".list-group-item:eq(1)").html("<b>Género:</b> " + detalles[5]);
+            $(".list-group-item:eq(2)").html("<b>Dirección:</b> " + detalles[6]);
+            $(".list-group-item:eq(3)").html("<b>Reparto:</b> " + detalles[7]);
+
+            $("#addPeli").attr({ name: urlPeli, title: tituloPeli });
+          }
+        });
+      });
+    });
+  </script>
+
+  <div class="col-12 pt-5">
+
+    <div id="carouselExampleControls" class="carousel slide col-12" data-ride="carousel" data-interval="false">
+      <div class="carousel-inner">
+        <div class="carousel-item active pt-5">
+
+          <div class="container w-100 estanteria">
+
+            <div class="row estanteria hueco">
+              <div class="col-lg-4 p-auto m-auto text-center">
+                <img id="{{nombrePlataforma}}" src="/static/image/{{nombrePlataforma}}.png" class="img-fluid logotipo">
+              </div>
+            </div>
+
+            <div class="row tipoEstreno">
+              <div class="col-12 p-auto m-auto">
+                <h3 class="text-center">ESTRENOS RECIENTES</h3>
+              </div>
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+          </div>
+
+
+        </div>
+        <div class="carousel-item pt-5">
+
+          <div class="container w-100 estanteria">
+
+            <div class="row estanteria hueco">
+              <div class="col-lg-4 p-auto m-auto text-center">
+                <img id="{{nombrePlataforma}}" src="/static/image/{{nombrePlataforma}}.png" class="img-fluid logotipo">
+              </div>
+            </div>
+
+            <div class="row tipoEstreno">
+              <div class="col-12 p-auto m-auto">
+                <h3 class="text-center">PRÓXIMOS ESTRENOS</h3>
+              </div>
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+            <div class="row estante">
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true">
+
+        </span>
+        <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true">
+
+        </span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+</content>
+{%endblock%}

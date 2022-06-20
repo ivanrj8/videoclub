@@ -1,0 +1,190 @@
+
+    @font-face {
+      font-family: 'Inconsolata';
+      src: url("../fonts/Inconsolata/Inconsolata-Regular.ttf");
+    }
+
+    *{
+      margin: 0px;
+      padding: 0px;
+      box-sizing: border-box;
+    }
+
+    body {
+        background-color: #F2EDD7; /*#CEDDF3*/
+        font-family: 'Inconsolata', monospace;
+        width: 100%;
+      }
+
+    .navbar{
+        background-color: #5F939A; /*#6394c7*/
+        box-shadow: 0px 0px 10px rgb(0, 0, 0);
+      }
+
+    .nav-link{
+        font-size:18px;
+        font-weight:600;
+      }
+
+    li a:hover{
+        /*font-size:20px;*/
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+      }
+  
+    .navbar-toggler:hover {
+        border: 2px solid #000000;
+      }
+  
+    .navbar-toggler:active,
+    .logotipo:active,
+    .portada:active,
+    .nav-link:active,
+    .logo:active {
+        opacity: 75%;
+      }
+      
+    .logotipo:hover {
+        filter: drop-shadow(5px 5px 30px rgb(255, 255, 255));
+      }
+
+    .container{
+        box-shadow: 0px 0px 10px rgb(0, 0, 0);
+        border: 13px outset #A0937D;
+      }
+  
+    .estanteria {
+        background-color: rgb(167, 167, 167);
+        border-radius: 3px;
+      }
+  
+    .estantes {
+        display: none;
+      }
+      
+    .estante {
+        border: 0px solid #A0937D;
+      }
+
+    .d-md-block{
+        background-color:#A0937D;
+      }
+  
+    .hueco {
+        box-shadow: 0px 0px -10px rgb(0, 0, 0);
+        border: 7px inset #A0937D;
+        border-radius: 3px;
+      }
+
+    .tipoEstreno{
+        box-shadow: 0px 0px -10px rgb(0, 0, 0);
+        background-color:#A0937D;
+        border-radius: 3px;
+        color: white;
+      }
+
+    .tipoEstreno h3{
+      text-shadow: 0 0 10px rgb(0, 0, 0);
+
+    }
+
+    [class^="col-6"] {
+        background-color: rgb(167, 167, 167);
+        border: 10px inset #A0937D;
+      }
+  
+    .portada{
+        width: 90px;
+        height: 140px;
+        border: 2px solid rgb(199, 195, 195);
+        box-shadow: 0px 0px 10px rgb(0, 0, 0);
+      }
+
+    .portada2{
+        width: 80px;
+        height: 120px;
+      }
+
+    .portada:hover {
+        box-shadow: 0px 0px 10px rgb(255, 255, 255);
+        border-radius: 5px;
+        width: 100px;
+        height: 150px;
+        margin-bottom: -10px;
+        cursor: pointer;
+      }
+  
+  /*.logo {
+        box-shadow: 0px 10px 10px rgb(0, 0, 0);
+        border-radius: 5px;
+      }*/
+
+    .botonMas {
+        background-color: rgb(105, 105, 105);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 3px 3px 3px rgb(0, 0, 0);
+        font-weight: bold;
+        color:rgb(255, 255, 255);
+      }
+  
+    .botonMas:hover {
+        background-color: rgb(167, 167, 167);
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+        box-shadow: 5px 5px 5px rgb(0, 0, 0);
+        margin: -5px;
+      }
+  
+    .botonMas:active {
+        background-color: rgb(105, 105, 105);
+      }
+
+    .btn-lg{
+      background-color: #A0937D;
+      border: black;
+      color:white;
+    }
+
+    .btn-lg:hover, .btn-lg:active{
+      background-color: rgb(167, 167, 167);
+      border: black;
+    }
+    
+    @media screen and (min-width: 721px) {
+      h3 {
+        font-size: 50px;
+      }
+    }
+    
+    @media screen and (max-width: 720px) {
+      h3 {
+        font-size: 17px;
+      }
+    }
+
+    .pie{
+        height: 5%;
+        color:white;
+      }
+
+    .carousel-control-prev-icon, .carousel-control-next-icon{
+        box-shadow: 0px 0px 0px 15px rgb(167, 167, 167);
+        background-color:rgb(167, 167, 167);
+        border-radius: 50%;
+        padding:5px;
+      }
+
+    .carousel-control-prev,
+    .carousel-control-next{
+    align-items: flex-start; /* Aligns it at the top */
+    }
+  
+    .modal-dialog{
+      overflow-y: initial !important
+    }
+    .modal-body{
+      height: 400px;
+      overflow-y: auto;
+    }

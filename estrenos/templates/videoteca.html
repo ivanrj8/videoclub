@@ -1,0 +1,137 @@
+{% extends 'base.html' %} {%block titulo %}Videoteca {%endblock%}
+{%block contenido%}
+
+<content class="pt-5 pb-5 row p-auto m-auto">
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            pelisUsuario = JSON.parse("{{pelisUsuario|escapejs}}");
+
+            cont = 0;
+            contTotales = pelisUsuario.length;
+            numEstantes = pelisUsuario.length / 4; //Añade estantes según número de películas
+
+            if (contTotales == 0) {
+                swal("¡VIDEOTECA VACÍA!", "No tienes aún nada añadido", "info");
+            };
+
+            for (z = 0; z < numEstantes; z++) {
+                estante = '<div class="row estante"></div>';
+                $(".estanteria:eq(0)").append(estante);
+            }
+
+            filas = $(".estante");
+
+            for (i = 0; i < filas.length; i++) {
+                for (j = 0; j < 4; j++) {
+                    if (contTotales == cont) {
+                        estante = '<div class="col-6 col-md-3 ">' +
+                            '<div class="pt-3 text-center portada2" >' +
+                            '<img class="img-fluid" >' +
+                            '</div>' +
+                            '</div>';
+                    } else {
+                        estante = '<div class="col-6 col-md-3">' +
+                            '<div class="pt-3 text-center">' +
+                            '<a data-toggle="popover" title="' + pelisUsuario[cont][1] + '" data-content="' + pelisUsuario[cont][3] + '">' +
+                            '<img class="portada img-fluid peli" src="' + pelisUsuario[cont][2] + '" alt="' + pelisUsuario[cont][1] + '" id=' + pelisUsuario[cont][0] + ' name="' + pelisUsuario[cont][3] + '" data-toggle="modal" data-target="#modalMovie">' +
+                            '</a>' +
+                            '</div>' +
+                            '</div>';
+                        cont++;
+                    }
+                    filas.eq(i).append(estante);
+                }
+            }
+
+            if ($(window).width() > 960) {
+                $('[data-toggle="popover"]').popover({
+                    placement: 'right',
+                    trigger: 'hover'
+                });
+            } else {
+                $('.portada').css({
+                    width: 80,
+                    height: 120
+                });
+            }
+
+            $("#addPeli").attr("id", "deletePeli");
+
+            $(".peli").click(function () {
+                var urlPeli = $(this).attr("id");
+                var tituloPeli = $(this).attr("alt");
+                $.ajax({
+                    type: "GET",
+                    url: '{% url "mostrarDetalles" %}',
+                    data: {
+                        'urlPeli': urlPeli
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        $(".modal-title").html("Película Alquilada:");
+                        var detalles = data["response"];
+                        if (detalles[2] != "")
+                            detalles[2] = " <br> Duración: " + detalles[2] + ""
+                        if (detalles[9] != "")
+                            detalles[2] += " Año: " + detalles[9] + "."
+                        $(".card-title").html("<b>" + tituloPeli + "</b>");
+                        $(".card-text").html(detalles[2] + "<br>" + detalles[3]);
+                        $(".card-img-top").attr("src", detalles[1]);
+
+                        if (detalles[8] == "404")
+                            $(".card-link").html("<b>No hay link disponible</b>").css("color", "red").removeAttr("href");
+                        else
+                            $(".card-link").html("<b>Ver Contenido Ahora</b>").css("color", "green").attr("href", detalles[8]);
+
+                        $(".list-group-item:eq(0)").html("<b>País:</b> " + detalles[4]);
+                        $(".list-group-item:eq(1)").html("<b>Género:</b> " + detalles[5]);
+                        $(".list-group-item:eq(2)").html("<b>Dirección:</b> " + detalles[6]);
+                        $(".list-group-item:eq(3)").html("<b>Reparto:</b> " + detalles[7]);
+
+                        $("#deletePeli").html("Eliminar");
+                        $("#deletePeli").attr("title", tituloPeli);
+                        $("#deletePeli").attr("class", "btn btn-danger");
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                $("#deletePeli").click(function () {
+                    var titulo = $(this).attr("title");
+                    $.ajax({
+                        type: "GET",
+                        url: '{% url "eliminar" %}',
+                        data: {
+                            'titulo': titulo,
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            var peli = data["response"];
+                            //swal("¡Película eliminada!", peli, "error");
+                            window.location.href = "/contenido";
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+
+    <div class="col-12 pt-5">
+        <div class="container w-100 estanteria">
+
+            <div class="row estanteria hueco">
+                <div class="w-lg-50 m-auto">
+                    <div class="col-12 p-3 m-auto text-center">
+                        <img src="/static/image/estrenos-sinfondo.png" class="w-50 img-fluid logotipo">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</content>
+
+{%endblock%}

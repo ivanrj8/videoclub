@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    {% load static %}
+
+    <!--<link href="{% static 'vendor/bootstrap4/js/bootstrap.min.js' %}" rel="stylesheet">
+    <link href="{% static 'vendor/bootstrap4/css/bootstrap.min.css' %}" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+
+    <!--<link href="{% static 'vendor/jquery/jquery-3.6.0.js' %}" rel="stylesheet">
+    <link href="{% static 'vendor/jquery/jquery-3.6.0.min.js' %}" rel="stylesheet">-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <title>{%block titulo %}{%endblock%}</title>
+
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+    <style data-emotions="css"></style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(".logo").on({
+                "mouseenter": function () {
+                    $(this).attr('src', '/static/gif/' + $(this).attr('id') + '.gif');
+                    $(this).css({
+                        'box-shadow': '0px 0px 10px rgb(255, 255, 255)',
+                        'border-radius': '5px'
+                    });
+                },
+                "mouseleave": function () {
+                    $(this).attr('src', '/static/image/' + $(this).attr('id') + '.png');
+                    $(this).css('box-shadow', '');
+                }
+            });
+
+            $('button').on('click', function () {
+                if ($(this).siblings("button").attr("aria-expanded") == "true") { //para los iconos del header
+                    $(this).siblings("button").click();
+                }
+            });
+
+            $(".botonMas").click(function () {
+                $(this).parent().parent().siblings(".estantes").slideToggle();
+                var contenido = ($(this).html() == "+") ? "-" : "+"; //Operador condicional ternario
+                $(this).html(contenido);
+            });
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+    <header class="pb-5">
+
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPlatforms"
+                aria-controls="navbarPlatforms" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a class="navbar-brand pl-3" href="/">
+                <img class="logotipo" src="{% static 'image/estrenos-sinfondo.png' %}" width="70" height="50">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUser"
+                aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="{% static 'image/usuario.png' %}" width="40" height="40">
+            </button>
+
+            <div class="collapse navbar-collapse mr-auto" id="navbarPlatforms">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#EF0002" href="{% url 'plataforma' 'NETFLIX' %}"
+                            id="NETFLIX">Netflix</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#010C32" href="{% url 'plataforma' 'DISNEY-PLUS' %}"
+                            id="DISNEY-PLUS">Disney +</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#004D79" href="{% url 'plataforma' 'MOVISTAR-PLUS' %}"
+                            id="MOVISTAR-PLUS">Movistar +</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#4E27BC" href="{% url 'plataforma' 'HBO-MAX' %}"
+                            id="HBO-MAX">HBO Max</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:white" href="{% url 'plataforma' 'PRIME-VIDEO' %}"
+                            id="PRIME-VIDEO">Prime Video</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:#01FFA7" href="{% url 'plataforma' 'FILMIN' %}"
+                            id="FILMIN">Filmin</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarUser">
+                <ul class="navbar-nav ml-auto mt-3">
+                    <li class="nav-item">
+                        <a class="nav-link text-right" href="{% url 'loginUsuario' %}" style="color:rgb(227, 230, 231)">
+                            {% if request.session.login %} Hola, {{request.session.nombre}} (Cerrar Sesión) {% else %}
+                            Tu Cuenta
+                            {%endif%}</a>
+                    </li>
+                    <li class="d-none d-lg-block">
+                        <!--Solo visible a partir de lg-->
+                        <p class="nav-link text-right"> | </p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-right" href="{% url 'contenido' %}" style="color:rgb(227, 230, 231)">Tu
+                            Videoteca</a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+    </header>
+
+    {% block contenido %} {%endblock%}
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalMovie" tabindex="-1" role="dialog" aria-labelledby="modalMovieLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title" id="modalMovieLabel">Alquilar Película</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <img class="card-img-top w-50 m-auto" src="#">
+                        <div class="card-body">
+                            <h5 class="card-title">Titulo</h5>
+                            <p class="card-text">Sinopsis</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">País: </li>
+                            <li class="list-group-item">Género: </li>
+                            <li class="list-group-item">Director/es: </li>
+                            <li class="list-group-item">Actor/es: </li>
+                        </ul>
+                        <div class="card-body">
+                            <a target="_blank" href="#" class="card-link">Ver Contenido Ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrar">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="addPeli" name="" title="">Añadir a mi
+                        Videoteca</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="pt-5">
+
+        <div class="row navbar fixed-bottom navbar-expand-lg pie">
+
+            <div class="col-12 info text-center">
+                Selecciona y alquila tu contenido
+            </div>
+
+        </div>
+
+    </footer>
+
+    <script type="text/javascript">
+        //Ajax para alquilar y uso de librería swal
+        $(document).ready(function () {
+            $("#addPeli").click(function () {
+                var urlPeli = $(this).attr("name");
+                var tituloPeli = $(this).attr("title");
+                $.ajax({
+                    type: "GET",
+                    url: '{% url "addPeli" %}',
+                    data: {
+                        'urlPeli': urlPeli,
+                        'tituloPeli': tituloPeli
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var detalles = data["response"];
+                        if (detalles == "NOLOGIN") {
+                            $("#cerrar").click();
+                            swal("¡ERROR!", 'No estás logeado', "error");
+                        } else {
+                            if (detalles[3] == "REPETIDA") {
+                                $("#cerrar").click();
+                                swal("¡ERROR!", '' + tituloPeli + ' ya la tienes alquilada', "error");
+                            } else {
+                                $("#cerrar").click();
+                                swal("¡Película alquilada!", '' + tituloPeli + '', "success");
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

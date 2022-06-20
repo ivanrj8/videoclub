@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {%block titulo %}Login {%endblock%}
+{%block contenido%}
+
+<content class="row pt-5 mt-lg-5 p-auto m-auto">
+
+    <div class="col-lg-5 p-5">
+
+        <div class="formulario">
+            <form action="{% url 'addUser' %}" method="POST">
+                {% csrf_token %}
+
+                <legend>Registrarse:</legend>
+
+                <div class="form-group">
+                    <div class="input-group">{{formAdd.usuario}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">{{formAdd.password}}</div>
+                </div>
+                <br>
+                <center>
+                    <input type="submit" class="btn btn-lg" value="Aceptar">
+                </center>
+            </form>
+        </div>
+
+        {% if mensajeAdd %}
+        <div class="alert alert-danger text-center mt-5" role="alert">
+            <p>{{mensajeAdd}}</p>
+        </div>
+        {%endif%}
+
+        {% if mensajeAddDone %}
+        <div class="alert alert-success text-center mt-5" role="alert">
+            <p>{{mensajeAddDone}}</p>
+        </div>
+        {%endif%}
+
+    </div>
+
+    <div class="col-lg-2 p-5 d-none d-lg-block">
+
+    </div>
+
+    <div class="col-lg-5 p-5">
+
+        <div class="formulario">
+            <form action="{% url 'loginUsuario' %}" method="POST">
+                {% csrf_token %}
+
+                <legend>Iniciar Sesión:</legend>
+                <div class="form-group">
+                    <div class="input-group">{{form.usuarioLogin}}</div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">{{form.passwordLogin}}</div>
+                </div>
+                <br>
+                <center>
+                    <input type="submit" class="btn btn-lg" value="Aceptar">
+                </center>
+            </form>
+
+        </div>
+
+        {% if mensajeLogin %}
+        <div class="alert alert-danger text-center mt-5" role="alert">
+            <p>{{mensajeLogin}}</p>
+        </div>
+        {%endif%}
+
+    </div>
+
+</content>
+
+{%endblock%}

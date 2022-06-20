@@ -1,0 +1,258 @@
+{% extends 'base.html' %} {%block titulo %}Estrenos Streaming{%endblock%}
+{%block pelis %}{{pelis}}{%endblock%}
+{%block contenido%}
+<content class="pt-5 row p-auto m-auto">
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+
+      var pelis = JSON.parse("{{pelis|escapejs}}");
+      cont = 0;
+
+      filas = $(".estante");
+
+      for (i = 0; i < filas.length; i++) {
+        for (j = 0; j < 4; j++) {
+          estante = '<div class="col-6">' +
+            '<div class="pt-3 text-center">' +
+            '<a data-toggle="popover" title="' + pelis[cont][1] + '" data-content="' + pelis[cont][3] + '">' +
+            '<img class="portada img-fluid peli" src="' + pelis[cont][2] + '" alt="' + pelis[cont][1] + '" id=' + pelis[cont][0] + ' name="' + pelis[cont][3] + '" data-toggle="modal" data-target="#modalMovie">' +
+            '</a>'
+          '</div>' +
+            '</div>';
+          cont++;
+          filas.eq(i).append(estante);
+        }
+      }
+
+      if ($(window).width() > 960) {
+        $('[data-toggle="popover"]').popover({
+          placement: 'right',
+          trigger: 'hover'
+        });
+      } else {
+        $('.portada').css({
+          width: 80,
+          height: 100
+        });
+      }
+
+      $(".peli").click(function () {
+        var urlPeli = $(this).attr("id");
+        var tituloPeli = $(this).attr("alt");
+        $.ajax({
+          type: "GET",
+          url: '{% url "mostrarDetalles" %}',
+          data: {
+            'urlPeli': urlPeli
+          },
+          dataType: 'json',
+          success: function (data) {
+            var detalles = data["response"];
+            if (detalles[2] != "")
+              detalles[2] = " <br> Duración: " + detalles[2] + ""
+            if (detalles[9] != "")
+              detalles[2] += " Año: " + detalles[9] + "."
+            $(".card-title").html("<b>" + tituloPeli + "</b>");
+            $(".card-text").html(detalles[2] + "<br>" + detalles[3]);
+            $(".card-img-top").attr("src", detalles[1]);
+
+            if (detalles[8] == "404")
+              $(".card-link").html("<b>No hay link disponible</b>").css("color", "red").removeAttr("href");
+            else
+              $(".card-link").html("<b>Ver Contenido Ahora</b>").css("color", "green").attr("href", detalles[8]);
+
+            $(".list-group-item:eq(0)").html("<b>País:</b> " + detalles[4]);
+            $(".list-group-item:eq(1)").html("<b>Género:</b> " + detalles[5]);
+            $(".list-group-item:eq(2)").html("<b>Dirección:</b> " + detalles[6]);
+            $(".list-group-item:eq(3)").html("<b>Reparto:</b> " + detalles[7]);
+
+            $("#addPeli").attr({ name: urlPeli, title: tituloPeli });
+          }
+        });
+
+      });
+
+    });
+  </script>
+
+
+  <div class="pt-5"></div>
+
+  <div class="col-lg-4 p-4">
+
+    <div class="container w-100 estanteria ">
+
+      <div class="row estanteria">
+        <div class="">
+          <div class="col-12 p-1 m-auto hueco">
+            <img id="NETFLIX" src="/static/image/NETFLIX.png" class="img-fluid logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-3 d-md-block d-lg-none text-center">
+        <div class="col-12">
+          <button type="button" class="btn botonMas">+</button>
+        </div>
+      </div>
+
+      <div class="estantes d-lg-block">
+        <div class="row estante">
+        </div>
+        <div class="row estante">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4 p-4">
+
+    <div class="container w-100 estanteria">
+
+      <div class="row estanteria">
+        <div class="">
+          <div class="col-12 p-1 m-auto hueco">
+            <img id="DISNEY-PLUS" src="/static/image/DISNEY-PLUS.png" class="img-fluid logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-3 d-md-block d-lg-none">
+        <div class="col-12 text-center">
+          <button type="button" class="btn botonMas">+</button>
+        </div>
+      </div>
+
+      <div class="estantes d-lg-block">
+        <div class="row estante">
+        </div>
+        <div class="row estante">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4 p-4">
+
+    <div class="container w-100 estanteria">
+
+      <div class="row estanteria">
+        <div class="">
+          <div class="col-12 p-1 m-auto hueco">
+            <img id="MOVISTAR-PLUS" src="/static/image/MOVISTAR-PLUS.png" class="img-fluid logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-3 d-md-block d-lg-none">
+        <div class="col-12 text-center">
+          <button type="button" class="btn botonMas">+</button>
+        </div>
+      </div>
+
+      <div class="estantes d-lg-block">
+        <div class="row estante">
+        </div>
+        <div class="row estante">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4 p-4">
+
+    <div class="container w-100 estanteria">
+
+      <div class="row estanteria">
+        <div class="">
+          <div class="col-12 p-1 m-auto hueco">
+            <img id="HBO-MAX" src="/static/image/HBO-MAX.png" class="img-fluid logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-3 d-md-block d-lg-none">
+        <div class="col-12 text-center">
+          <button type="button" class="btn botonMas">+</button>
+        </div>
+      </div>
+
+      <div class="estantes d-lg-block">
+        <div class="row estante">
+        </div>
+        <div class="row estante">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4 p-4">
+
+    <div class="container w-100 estanteria">
+
+      <div class="row estanteria">
+        <div class="">
+          <div class="col-12 p-1 m-auto hueco">
+            <img id="PRIME-VIDEO" src="/static/image/PRIME-VIDEO.png" class="img-fluid logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-3 d-md-block d-lg-none">
+        <div class="col-12 text-center">
+          <button type="button" class="btn botonMas">+</button>
+        </div>
+      </div>
+
+      <div class="estantes d-lg-block">
+        <div class="row estante">
+        </div>
+        <div class="row estante">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-lg-4 p-4">
+
+    <div class="container w-100 estanteria">
+
+      <div class="row estanteria">
+        <div class="">
+          <div class="col-12 p-1 m-auto hueco">
+            <img id="FILMIN" src="/static/image/FILMIN.png" class="img-fluid logo">
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-3 d-md-block d-lg-none">
+        <div class="col-12 text-center">
+          <button type="button" class="btn botonMas">+</button>
+        </div>
+      </div>
+
+      <div class="estantes d-lg-block">
+        <div class="row estante">
+        </div>
+        <div class="row estante">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</content>
+{%endblock%}
