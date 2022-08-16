@@ -40,6 +40,6 @@ También, desde las pestañas superiores del menú se podrá acceder a las plata
 <h2>Ejecución</h2>
 </a>
 
-Para ejecutar la aplicación es necesario ejecutar el siguiente comando: python manage.py startapp videoclub.
+Para ejecutar la aplicación es necesario ejecutar el siguiente comando: python manage.py runserver
 
 Si se ejecuta directamente a través de la aplicación alojada en el servidor Heroku tan sólo hay que pinchar en el enlace <a> https://videoclub-estrenos.herokuapp.com </a> pudiendo tardar unos segundos al ser de alojamiento gratuito.
