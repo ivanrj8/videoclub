@@ -1,1 +1,1 @@
-web: gunicorn videoclub.wsgi
+web: gunicorn videoclub.wsgi --log-file -
