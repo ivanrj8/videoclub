@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-orx#@6$h16l92^7jvcngkw65p5(#c_@adm%+iv+-)ahk@5%o4(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['videoclub-estrenos.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
