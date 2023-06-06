@@ -16,11 +16,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y_-ny_9+@ws2_b_3xjng9759qv2=wfvmzh=#0)dgs&dew$%=ih'
+SECRET_KEY = 'django-insecure-orx#@6$h16l92^7jvcngkw65p5(#c_@adm%+iv+-)ahk@5%o4('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -48,8 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "django.middleware.security.SecurityMiddleware",  # Para Heroku
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # Para Heroku
+    'django.middleware.security.SecurityMiddleware',  # Para Heroku
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Para Heroku
 ]
 
 ROOT_URLCONF = 'videoclub.urls'
@@ -57,7 +58,7 @@ ROOT_URLCONF = 'videoclub.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['estrenos/templates/'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,17 +77,16 @@ WSGI_APPLICATION = 'videoclub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
 # Para local
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-"""
 
+"""
 # En Heroku
 DATABASES = {
     'default': {
@@ -98,8 +98,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-
+"""
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
