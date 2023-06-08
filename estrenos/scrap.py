@@ -46,7 +46,7 @@ def descargarIndex():
         # extraigo caracteristicas
         divEscogidos = soup.find_all(
             'div', attrs={'class': 'catrd-container'})
-        for d in divEscogidos[2:8]:
+        for d in divEscogidos[2:10]:
             pelisPlataforma = d.find_all(
                 'div', attrs={'class': 'padding-movie-catrd'})
             for p in pelisPlataforma[0:8]:
@@ -71,9 +71,9 @@ def descargarPlataforma(nombrePlataforma):
     pelisTotales = []
 
     nombresPlataformas = ["NETFLIX", "HBO-MAX",
-                          "PRIME-VIDEO", "DISNEY-PLUS", "MOVISTAR-PLUS", "FILMIN"]
+                          "PRIME-VIDEO", "DISNEY-PLUS", "MOVISTAR-PLUS", "FILMIN", "SKY", "APPLE"]
     plataformas = ["new_netflix", "new_hbo_es", "new_amazon_es",
-                   "disneyplus", "new_movistar_f", "new_filmin"]
+                   "disneyplus", "new_movistar_f", "new_filmin", "skyshowtime", "apple_tv_plus"]
 
     posicion = nombresPlataformas.index(nombrePlataforma)
 
@@ -115,9 +115,9 @@ def proximosEstrenos(nombrePlataforma):
     pelisTotales = []
 
     nombresPlataformas = ["NETFLIX", "HBO-MAX",
-                          "PRIME-VIDEO", "DISNEY-PLUS", "MOVISTAR-PLUS", "FILMIN"]
+                          "PRIME-VIDEO", "DISNEY-PLUS", "MOVISTAR-PLUS", "FILMIN", "SKY", "APPLE"]
     plataformas = ["netflix", "hbo_es", "amazon_es",
-                   "disneyplus", "movistar_f", "filmin"]
+                   "disneyplus", "movistar_f", "filmin", "skyshowtime", "apple_tv"]
 
     posicion = nombresPlataformas.index(nombrePlataforma)
 
