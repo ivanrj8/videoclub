@@ -12,3 +12,6 @@ RUN pip install -r requirements.txt
 
 # Define the entry point for the container
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# TCP PORT
+EXPOSE 8000
