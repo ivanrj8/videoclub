@@ -33,6 +33,7 @@ También, desde las pestañas superiores del menú se podrá acceder a las plata
 <h2>Requisitos previos</h2>
 </a>
 
+- Python version 3.10.11
 - Django version 4 o superior. 
 - Other requirements: Pillow (5.0.0), django-ckeditor (5.4.0), bs4 (0.0.1), gunicorn (20.1.0), whitenoise (6.1.0), psycopg2 (2.9.3)
 
